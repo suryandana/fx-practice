@@ -11,6 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -94,10 +97,6 @@ public class TestGridLayout {
         
         
         
-        
-        
-        
-        
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         gridPane.setVgap(2);
@@ -130,7 +129,25 @@ public class TestGridLayout {
             );
         });
         
-        gridPane.getChildren().addAll(lbUsername, tfUsername, lbPassword, tfPassword, ckRememberme, btnLogin);
+        
+        
+        ListView<String> listView = new ListView<>();
+        listView.getItems().addAll("Option 1", "Option 2", "Option 3",  "Option 4",  "Option 5",  "Option 6");
+        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        
+        ScrollPane scrollPane = new ScrollPane();
+//        scrollPane.getChildrenUnmodifiable().setAll(listView);
+        
+        GridPane.setConstraints(scrollPane, 0, 4, 2, 1);
+        scrollPane.setContent(listView);
+        scrollPane.setPannable(true); // it means that the user should be able to pan the viewport by using the mouse.
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        scrollPane.setFitToHeight(true);
+//        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefViewportHeight(100);
+        
+        
+        gridPane.getChildren().addAll(lbUsername, tfUsername, lbPassword, tfPassword, ckRememberme, btnLogin, scrollPane);
         gridPane.setAlignment(Pos.CENTER);
         
         borderPane.setCenter(gridPane);
